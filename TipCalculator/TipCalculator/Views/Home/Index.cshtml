@@ -7,6 +7,7 @@
 <h1>Tip Calculator</h1>
 
 <form asp-action="Index" , method="post">
+    <div asp-validation-summary="All"></div>
     <div>
         <label asp-for="MealCost">Cost of Meal: </label>
         <input asp-for="MealCost"/>
