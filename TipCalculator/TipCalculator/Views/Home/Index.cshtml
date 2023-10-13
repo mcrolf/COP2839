@@ -13,15 +13,15 @@
     </div>
     <div>
         <label>15% Tip: $</label>
-        <input value="@ViewBag.Fifteen.ToString("c2")" readonly />
+        <label>@ViewBag.Fifteen.ToString("c2")</label>
     </div>
     <div>
         <label>20% Tip: $</label>
-        <input value="@ViewBag.Twenty.ToString("c2")" readonly/>
+        <label>@ViewBag.Twenty.ToString("c2")</label>
     </div>
     <div>
         <label>25% Tip: $</label>
-        <input value="@ViewBag.TwentyFive.ToString("c2")" readonly/>
+        <label>@ViewBag.TwentyFive.ToString("c2")</label>
     </div>
     <button type="submit">Calculate</button>
     <a asp-action="Index">Clear</a>
