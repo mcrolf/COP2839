@@ -1,4 +1,4 @@
-namespace CarDealershipApp.Models
+﻿namespace CarDealershipApp.Models
 {
     public class ErrorViewModel
     {

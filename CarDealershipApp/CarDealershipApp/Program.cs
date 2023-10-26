@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using CarDealershipApp.DAL;
+using CarDealershipApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

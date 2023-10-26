@@ -1,0 +1,88 @@
+﻿
+@model CarListViewModel
+
+@{
+    ViewData["Title"] = " | Car Dealership ";
+    CarGridData current = Model.CurrentRoute;
+    GridData routes = Model.CurrentRoute.Clone();
+}
+
+<!-- Video Game catalogue table -->
+<h1> Car Inventory </h1>
+<table class="table table-bordered table-striped table-sm">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Car.Year), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Year</a>
+            </th>
+
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Car.Manufacturer.Name), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Make</a>
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Car.Model), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white ">Model</a>
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Car.StickerPrice), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Sticker Price</a>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Car car in Model.Cars)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@car.CarID"
+                       asp-route-slug="@car.Year">
+                        @car.Year
+                    </a>
+                </td>
+                <td>
+                    @car.Manufacturer.Name
+                </td>
+                <td>@car.Model</td>
+                <td>@car.StickerPrice.ToString("c")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* paging links *@
+@{
+    @* Reset to the current route values. This is necessary to clear the changes made while
+        creating the sorting links above. *@
+    routes = current.Clone();
+
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+           class="btn btn-outline-primary @active">@i</a>
+    }
+}

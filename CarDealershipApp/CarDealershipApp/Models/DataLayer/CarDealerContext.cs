@@ -1,19 +1,17 @@
-﻿using CarDealershipApp.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
 
 
-namespace CarDealershipApp.DAL
+namespace CarDealershipApp.Models
 {
     public class CarDealerContext : DbContext
     {
-        public CarDealerContext(DbContextOptions<CarDealerContext> options) : base (options) { }
+        public CarDealerContext(DbContextOptions<CarDealerContext> options) : base(options) { }
 
         //******************************************
         // creates tables for each model type
         //******************************************
         public DbSet<Car> Cars { get; set; } = null!;
-        public DbSet<Customer> Customers {  get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
         public DbSet<Lot> Lots { get; set; } = null!;
         public DbSet<Manufacturer> Manufacturers { get; set; } = null!;
