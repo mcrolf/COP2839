@@ -18,9 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.PLatform)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -45,9 +45,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.PLatform)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.StockQuantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreID)
+                @Html.DisplayFor(modelItem => item.Genre.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Publisher.PublisherID)
+                @Html.DisplayFor(modelItem => item.Publisher.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.GameID">Edit</a> |

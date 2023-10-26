@@ -1,0 +1,87 @@
+﻿@model GameListViewModel
+
+@{
+    ViewData["Title"] = " | Video Game Store ";
+    GameGridData current = Model.CurrentRoute;
+    GridData routes = Model.CurrentRoute.Clone();
+}
+
+<!-- Video Game catalogue table -->
+<h1> Video Game Catalog</h1>
+<table class="table table-bordered table-striped table-sm">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Game.Title), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Title</a>
+            </th>
+
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Game.Publisher), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Publisher</a>
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Game.Genre), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white ">Genre</a>
+            </th>
+            <th>
+                @{
+                    routes.SetSortAndDirection(
+                    nameof(Game.Price), current);
+                }
+                <a asp-action="List"
+                   asp-all-route-data="@routes.ToDictionary()"
+                   class="text-white">Price</a>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Game game in Model.Games)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@game.GameID"
+                       asp-route-slug="@game.Title.Slug()">
+                        @game.Title
+                    </a>
+                </td>
+                <td>
+                    @game.Publisher.Name
+                </td>
+                <td>@game.Genre.Name</td>
+                <td>@game.Price.ToString("c")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* paging links *@
+@{
+    @* Reset to the current route values. This is necessary to clear the changes made while
+        creating the sorting links above. *@
+    routes = current.Clone();
+
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        routes.PageNumber = i;
+        string active = @Nav.Active(i, current.PageNumber);
+        <a asp-action="List" asp-all-route-data="@routes.ToDictionary()"
+           class="btn btn-outline-primary @active">@i</a>
+    }
+}

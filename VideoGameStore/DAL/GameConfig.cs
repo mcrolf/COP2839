@@ -17,7 +17,7 @@ namespace VideoGameStore.DAL
                     GenreID = 3,
                     PublisherID = 2,
                     ReleaseDate = new DateTime(2015, 5, 19),
-                    PLatform = PLatform.PC,
+                    //PLatform = PLatform.PC,
                     Price = 29.99m,
                     StockQuantity = 10,
                 },
@@ -28,7 +28,7 @@ namespace VideoGameStore.DAL
                     GenreID = 2,
                     PublisherID = 3,
                     ReleaseDate = new DateTime(2017, 6, 14),
-                    PLatform = PLatform.PC,
+                    //PLatform = PLatform.PC,
                     Price = 34.99m,
                     StockQuantity = 10,
                 }
