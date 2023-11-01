@@ -7,10 +7,10 @@ namespace CarDealershipApp.Models
         public CarGridData() => SortField = nameof(Car.Year);
 
         [JsonIgnore]
-        public bool IsSortByManufacturer => SortField.EqualsNoCase(nameof(Car.Manufacturer));
+        public bool IsSortByManufacturer => SortField.EqualsNoCase(nameof(Car.Manufacturer.Name));
 
         [JsonIgnore]
-        public bool IsSortByModel => SortField.EqualsNoCase(nameof(Car.Model));
+        public bool IsSortByModel => SortField.EqualsNoCase(nameof(Car.CarModel));
 
         [JsonIgnore]
         public bool IsSortByPrice => SortField.EqualsNoCase(nameof(Car.StickerPrice));

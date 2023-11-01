@@ -26,7 +26,7 @@ namespace CarDealershipApp.Controllers
              */
             var options = new QueryOptions<Car>
             {
-                Includes = "Make, Model", // include Make and Model in return data
+                //Includes = "Manufacturer, CarModel", // include Make and Model in return data
                 OrderByDirection = values.SortDirection, //captured when user clicks in the web page
                 PageNumber = values.PageNumber, //
                 PageSize = values.PageSize,
@@ -48,7 +48,7 @@ namespace CarDealershipApp.Controllers
             }
             else if (values.IsSortByModel)
             {
-                options.OrderBy = b => b.Model;
+                options.OrderBy = b => b.CarModel;
             }
             else if (values.IsSortByPrice)
             {
@@ -79,7 +79,7 @@ namespace CarDealershipApp.Controllers
             var car = data.Get(new QueryOptions<Car>
             {
                 Where = b => b.CarID == id,
-                Includes = "Genre, Publisher"
+                Includes = "Manufacturer, CarModel"
             }) ?? new Car();
 
             return View(car);

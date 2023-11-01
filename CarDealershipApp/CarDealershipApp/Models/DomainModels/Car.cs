@@ -24,7 +24,7 @@
         public int ManufacturerID { get; set; }
         public Manufacturer Manufacturer { get; set; } = null!; // foreign key
         public int Mileage { get; set; }
-        public string? Model {  get; set; }
+        public string? CarModel {  get; set; }
         public decimal StickerPrice { get; set; }
         public string? VIN { get; set; }
         public int Year { get; set; }

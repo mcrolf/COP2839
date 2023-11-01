@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarDealershipApp.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    [Migration("20231026233711_102623")]
-    partial class _102623
+    [Migration("20231101164419_11012023")]
+    partial class _11012023
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace CarDealershipApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarID"));
 
+                    b.Property<string>("CarModel")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Color")
                         .HasColumnType("int");
 
@@ -41,9 +44,6 @@ namespace CarDealershipApp.Migrations
 
                     b.Property<int>("Mileage")
                         .HasColumnType("int");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("StickerPrice")
                         .HasColumnType("decimal(18,2)");
@@ -64,10 +64,10 @@ namespace CarDealershipApp.Migrations
                         new
                         {
                             CarID = 1,
+                            CarModel = "Camry LE",
                             Color = 2,
                             ManufacturerID = 26,
                             Mileage = 65123,
-                            Model = "Camry LE",
                             StickerPrice = 14999m,
                             VIN = "4T1BF1FK6HU631387",
                             Year = 2017
@@ -75,10 +75,10 @@ namespace CarDealershipApp.Migrations
                         new
                         {
                             CarID = 2,
+                            CarModel = "Civic SI",
                             Color = 4,
                             ManufacturerID = 9,
                             Mileage = 85976,
-                            Model = "Civic SI",
                             StickerPrice = 13999m,
                             VIN = "2HGFC1E53JH702758",
                             Year = 2018
@@ -86,10 +86,10 @@ namespace CarDealershipApp.Migrations
                         new
                         {
                             CarID = 3,
+                            CarModel = "F-150",
                             Color = 1,
                             ManufacturerID = 7,
                             Mileage = 63897,
-                            Model = "F-150",
                             StickerPrice = 30999m,
                             VIN = "1FTFW1E52JKE09948",
                             Year = 2018
@@ -97,10 +97,10 @@ namespace CarDealershipApp.Migrations
                         new
                         {
                             CarID = 4,
+                            CarModel = "Altima",
                             Color = 3,
                             ManufacturerID = 20,
                             Mileage = 28677,
-                            Model = "Altima",
                             StickerPrice = 18200m,
                             VIN = "1N4BL4CV3KC117951",
                             Year = 2019
@@ -108,10 +108,10 @@ namespace CarDealershipApp.Migrations
                         new
                         {
                             CarID = 5,
+                            CarModel = "CX5",
                             Color = 3,
                             ManufacturerID = 16,
                             Mileage = 56988,
-                            Model = "CX5",
                             StickerPrice = 14600m,
                             VIN = "JM3KE2DY5G0601458",
                             Year = 2016

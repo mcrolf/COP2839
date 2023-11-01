@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarDealershipApp.Migrations
 {
     /// <inheritdoc />
-    public partial class _102623 : Migration
+    public partial class _11012023 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -106,7 +106,7 @@ namespace CarDealershipApp.Migrations
                     Color = table.Column<int>(type: "int", nullable: false),
                     ManufacturerID = table.Column<int>(type: "int", nullable: false),
                     Mileage = table.Column<int>(type: "int", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarModel = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StickerPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Year = table.Column<int>(type: "int", nullable: false)
@@ -159,14 +159,14 @@ namespace CarDealershipApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "CarID", "Color", "ManufacturerID", "Mileage", "Model", "StickerPrice", "VIN", "Year" },
+                columns: new[] { "CarID", "CarModel", "Color", "ManufacturerID", "Mileage", "StickerPrice", "VIN", "Year" },
                 values: new object[,]
                 {
-                    { 1, 2, 26, 65123, "Camry LE", 14999m, "4T1BF1FK6HU631387", 2017 },
-                    { 2, 4, 9, 85976, "Civic SI", 13999m, "2HGFC1E53JH702758", 2018 },
-                    { 3, 1, 7, 63897, "F-150", 30999m, "1FTFW1E52JKE09948", 2018 },
-                    { 4, 3, 20, 28677, "Altima", 18200m, "1N4BL4CV3KC117951", 2019 },
-                    { 5, 3, 16, 56988, "CX5", 14600m, "JM3KE2DY5G0601458", 2016 }
+                    { 1, "Camry LE", 2, 26, 65123, 14999m, "4T1BF1FK6HU631387", 2017 },
+                    { 2, "Civic SI", 4, 9, 85976, 13999m, "2HGFC1E53JH702758", 2018 },
+                    { 3, "F-150", 1, 7, 63897, 30999m, "1FTFW1E52JKE09948", 2018 },
+                    { 4, "Altima", 3, 20, 28677, 18200m, "1N4BL4CV3KC117951", 2019 },
+                    { 5, "CX5", 3, 16, 56988, 14600m, "JM3KE2DY5G0601458", 2016 }
                 });
 
             migrationBuilder.CreateIndex(

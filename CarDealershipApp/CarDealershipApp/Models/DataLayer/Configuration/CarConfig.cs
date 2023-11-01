@@ -33,7 +33,7 @@ namespace CarDealershipApp.Models
                     Color = Color.White,
                     ManufacturerID = 26,
                     Mileage = 65123,
-                    Model = "Camry LE",
+                    CarModel = "Camry LE",
                     StickerPrice = 14999,
                     VIN = "4T1BF1FK6HU631387",
                     Year = 2017
@@ -44,7 +44,7 @@ namespace CarDealershipApp.Models
                     Color = Color.Blue,
                     ManufacturerID = 9,
                     Mileage = 85976,
-                    Model = "Civic SI",
+                    CarModel = "Civic SI",
                     StickerPrice = 13999,
                     VIN = "2HGFC1E53JH702758",
                     Year = 2018
@@ -55,7 +55,7 @@ namespace CarDealershipApp.Models
                     Color = Color.Black,
                     ManufacturerID = 7,
                     Mileage = 63897,
-                    Model = "F-150",
+                    CarModel = "F-150",
                     StickerPrice = 30999,
                     VIN = "1FTFW1E52JKE09948",
                     Year = 2018
@@ -66,7 +66,7 @@ namespace CarDealershipApp.Models
                     Color = Color.Silver,
                     ManufacturerID = 20,
                     Mileage = 28677,
-                    Model = "Altima",
+                    CarModel = "Altima",
                     StickerPrice = 18200,
                     VIN = "1N4BL4CV3KC117951",
                     Year = 2019
@@ -77,7 +77,7 @@ namespace CarDealershipApp.Models
                     Color = Color.Silver,
                     ManufacturerID = 16,
                     Mileage = 56988,
-                    Model = "CX5",
+                    CarModel = "CX5",
                     StickerPrice = 14600,
                     VIN = "JM3KE2DY5G0601458",
                     Year = 2016

@@ -34,7 +34,7 @@
             <th>
                 @{
                     routes.SetSortAndDirection(
-                    nameof(Car.Model), current);
+                    nameof(Car.CarModel), current);
                 }
                 <a asp-action="List"
                    asp-all-route-data="@routes.ToDictionary()"
@@ -62,10 +62,8 @@
                         @car.Year
                     </a>
                 </td>
-                <td>
-                    @car.Manufacturer.Name
-                </td>
-                <td>@car.Model</td>
+                <td>@car.Manufacturer</td> <!-- cannot get to display the manufacturer name-->
+                <td>@car.CarModel</td>
                 <td>@car.StickerPrice.ToString("c")</td>
             </tr>
         }
