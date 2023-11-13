@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace VideoGameStore.Models
 {
-    public class GameStoreContext : DbContext
+    public class GameStoreContext : IdentityDbContext<User>
     {
         public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
         {
@@ -14,6 +15,8 @@ namespace VideoGameStore.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new GameConfiguration());
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,6 +33,42 @@
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                     </ul>
                 </div>
+                <!-- login -->
+                <div class="d-grid gap-2 d-md-block">
+                    <ul class="list-unstyled">
+
+                        @if (signInManager.IsSignedIn(User))
+                        {
+
+                        //signed in user
+                            <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="Account" asp-area="">
+                                    <input type="submit" value="Log Out" class="btn btn-outline-light" />
+                                    <span class="text-light"> Greetings: @User.Identity.Name</span>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            //get the current action
+                            var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+                            //anonymous user
+                            <li class="nav-item @Nav.Active("Register", action)">
+                                <a asp-action="Register" asp-controller="Account" asp-area="" class="btn btn-primary">
+                                    Register
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-action="Login" asp-controller="Account" asp-area="" class="btn btn-secondary">
+                                    Log In
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            
             </div>
         </nav>
     </header>
