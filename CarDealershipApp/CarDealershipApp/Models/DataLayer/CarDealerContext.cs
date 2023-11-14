@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace CarDealershipApp.Models
 {
-    public class CarDealerContext : DbContext
+    public class CarDealerContext : IdentityDbContext<User>
     {
         public CarDealerContext(DbContextOptions<CarDealerContext> options) : base(options) { }
 
@@ -24,6 +25,8 @@ namespace CarDealershipApp.Models
         {
             // TODO: Add model builder for
             //       Employee, Lot, etc...
+
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new CarConfig());
             modelBuilder.ApplyConfiguration(new ManufacturerConfig());

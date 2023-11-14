@@ -1,4 +1,7 @@
-﻿@model IEnumerable<CarDealershipApp.Models.Car>
+﻿<!-- for some reason the bootstrap styling doesnt work here....-->
+
+
+@model IEnumerable<CarDealershipApp.Models.Car>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,13 +13,9 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<!-- Table Display -->
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
@@ -35,18 +34,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.VIN)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
             <th></th>
         </tr>
     </thead>
-    
-    <!-- Items to be displayed in the Table-->
-    <tbody>        
+    <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
@@ -65,15 +61,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.VIN)
             </td>
-            
-            <!-- Buttons for Additional Actions on item-->
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CarID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.CarID">Delete</a>
             </td>
         </tr>
-}<!--end for loop-->
-    
+}
     </tbody>
 </table>
