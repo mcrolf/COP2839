@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VideoGameStore.Models;
 
-namespace VideoGameStore.Areas.Admin
+namespace VideoGameStore.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
@@ -164,14 +164,14 @@ namespace VideoGameStore.Areas.Admin
             {
                 _context.Games.Remove(game);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GameExists(int id)
         {
-          return (_context.Games?.Any(e => e.GameID == id)).GetValueOrDefault();
+            return (_context.Games?.Any(e => e.GameID == id)).GetValueOrDefault();
         }
     }
 }
