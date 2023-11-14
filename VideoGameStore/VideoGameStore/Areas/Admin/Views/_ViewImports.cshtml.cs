@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CarDealershipApp.Areas.Admin.Views.Shared
+namespace VideoGameStore.Areas.Admin.Views
 {
-    public class _ViewStartModel : PageModel
+    public class _ViewImportsModel : PageModel
     {
         public void OnGet()
         {
