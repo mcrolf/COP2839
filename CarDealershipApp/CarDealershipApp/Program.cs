@@ -60,6 +60,13 @@ app.MapAreaControllerRoute(
     areaName: "Admin",
     pattern: "/Admin/{controller=Home}/{action=Index}/{id?}");
 
+//------------------------------------------------
+// add for better url when sorting
+//------------------------------------------------
+app.MapControllerRoute(
+    name: "page_sort",
+    pattern: "{controller}/{action}/page/{pagenumber}/size/{pagesize}/sort/{sortfield}/{sortdirection}");
+
 //----------------------------------------------
 // default map controller route
 //----------------------------------------------
