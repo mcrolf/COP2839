@@ -1,4 +1,6 @@
-﻿namespace VideoGameStore.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace VideoGameStore.Models
 {
     /*
      * Demonstration of enum. This is not the best field for using a enum
@@ -49,11 +51,13 @@
         //Foreign Key
         public int GenreID { get; set; }
         //Navigation Property
+        [ValidateNever]
         public Genre Genre { get; set; } = null!;
 
         //Foreign Key
         public int PublisherID { get; set; }
         //Navigation Property 
+        [ValidateNever]
         public Publisher Publisher { get; set; } = null!;
 
     }

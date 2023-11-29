@@ -9,7 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+@if (TempData.ContainsKey("message"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["message"]
+    </div>
+}
+<table class="table table-sm table-hover table-striped">
     <thead>
         <tr>
             <th>
@@ -37,35 +43,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher.PublisherID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.GameID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GameID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GameID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Platform)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.GameID">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.GameID">Details</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.GameID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

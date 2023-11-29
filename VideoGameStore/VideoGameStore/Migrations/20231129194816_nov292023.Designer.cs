@@ -12,8 +12,8 @@ using VideoGameStore.Models;
 namespace VideoGameStore.Migrations
 {
     [DbContext(typeof(GameStoreContext))]
-    [Migration("20231108154053_Identity")]
-    partial class Identity
+    [Migration("20231129194816_nov292023")]
+    partial class nov292023
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

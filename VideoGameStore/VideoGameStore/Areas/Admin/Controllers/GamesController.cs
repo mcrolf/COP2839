@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using VideoGameStore.Areas.Admin.Models;
 using VideoGameStore.Models;
 
 namespace VideoGameStore.Areas.Admin.Controllers
@@ -15,32 +12,43 @@ namespace VideoGameStore.Areas.Admin.Controllers
 
     public class GamesController : Controller
     {
-        private readonly GameStoreContext _context;
+        private Repository<Game> gameData;
+        private Repository<Genre> genreData;
+        private Repository<Publisher> publisherData;
 
         public GamesController(GameStoreContext context)
         {
-            _context = context;
+            gameData = new Repository<Game>(context);
+            genreData = new Repository<Genre>(context);
+            publisherData = new Repository<Publisher>(context);
         }
 
         // GET: Admin/Games
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var gameStoreContext = _context.Games.Include(g => g.Genre).Include(g => g.Publisher);
-            return View(await gameStoreContext.ToListAsync());
+
+            var games = gameData.List(new QueryOptions<Game>
+            {
+                Includes = "Genre, Publisher",
+                OrderBy = g => g.Title
+
+            });
+            return View(games);
         }
 
         // GET: Admin/Games/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null || _context.Games == null)
+            if (id == null || gameData == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .Include(g => g.Genre)
-                .Include(g => g.Publisher)
-                .FirstOrDefaultAsync(m => m.GameID == id);
+            var game = gameData.Get(new QueryOptions<Game>
+            {
+                Includes = "Genre, Publisher"
+            });
+
             if (game == null)
             {
                 return NotFound();
@@ -50,11 +58,13 @@ namespace VideoGameStore.Areas.Admin.Controllers
         }
 
         // GET: Admin/Games/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["GenreID"] = new SelectList(_context.Genres, "GenreID", "GenreID");
-            ViewData["PublisherID"] = new SelectList(_context.Publishers, "PublisherID", "PublisherID");
-            return View();
+
+            var vm = new GameViewModel();
+            LoadViewData(vm);
+            return View("Create", vm);
         }
 
         // POST: Admin/Games/Create
@@ -62,35 +72,38 @@ namespace VideoGameStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameID,Title,ReleaseDate,Platform,Price,StockQuantity,GenreID,PublisherID")] Game game)
+        public IActionResult Create(GameViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(game);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                gameData.Insert(vm.game);
+                gameData.Save();
+                TempData["message"] = $"{vm.game.Title} added to the Games List";
+                return RedirectToAction("Index");
             }
-            ViewData["GenreID"] = new SelectList(_context.Genres, "GenreID", "GenreID", game.GenreID);
-            ViewData["PublisherID"] = new SelectList(_context.Publishers, "PublisherID", "PublisherID", game.PublisherID);
-            return View(game);
+            else
+            {
+                LoadViewData(vm);
+                return View("Create");
+
+            }
         }
 
         // GET: Admin/Games/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null || _context.Games == null)
+            var vm = new GameViewModel
             {
-                return NotFound();
-            }
+                game = GetGame(id)
+            };
 
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
+            if (vm.game == null)
             {
                 return NotFound();
             }
-            ViewData["GenreID"] = new SelectList(_context.Genres, "GenreID", "GenreID", game.GenreID);
-            ViewData["PublisherID"] = new SelectList(_context.Publishers, "PublisherID", "PublisherID", game.PublisherID);
-            return View(game);
+            LoadViewData(vm);
+
+            return View("Edit", vm);
         }
 
         // POST: Admin/Games/Edit/5
@@ -98,9 +111,9 @@ namespace VideoGameStore.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GameID,Title,ReleaseDate,Platform,Price,StockQuantity,GenreID,PublisherID")] Game game)
+        public IActionResult Edit(GameViewModel vm)
         {
-            if (id != game.GameID)
+            if (vm.game == null)
             {
                 return NotFound();
             }
@@ -109,12 +122,12 @@ namespace VideoGameStore.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(game);
-                    await _context.SaveChangesAsync();
+                    gameData.Update(vm.game);
+                    gameData.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GameExists(game.GameID))
+                    if (!GameExists(vm.game.GameID))
                     {
                         return NotFound();
                     }
@@ -123,55 +136,75 @@ namespace VideoGameStore.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["message"] = $"{vm.game.Title} edited";
+                return RedirectToAction(nameof(Edit));
             }
-            ViewData["GenreID"] = new SelectList(_context.Genres, "GenreID", "GenreID", game.GenreID);
-            ViewData["PublisherID"] = new SelectList(_context.Publishers, "PublisherID", "PublisherID", game.PublisherID);
-            return View(game);
+            return View("Edit", vm.game.GameID);
         }
 
         // GET: Admin/Games/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
-            if (id == null || _context.Games == null)
+
+            var vm = new GameViewModel
+            {
+                game = GetGame(id)
+            };
+
+            if (vm.game == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .Include(g => g.Genre)
-                .Include(g => g.Publisher)
-                .FirstOrDefaultAsync(m => m.GameID == id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            return View(game);
+            return View("Delete", vm.game);
         }
 
         // POST: Admin/Games/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(Game game)
         {
-            if (_context.Games == null)
+            if (gameData == null)
             {
-                return Problem("Entity set 'GameStoreContext.Games'  is null.");
+                return Problem("Entity set 'Repository<Game> gameData'  is null.");
             }
-            var game = await _context.Games.FindAsync(id);
-            if (game != null)
+            var gameToDelete = gameData.Get(game.GameID);
+            if (gameToDelete != null)
             {
-                _context.Games.Remove(game);
+                gameData.Delete(gameToDelete);
+                gameData.Save();
+                TempData["message"] = $"{gameToDelete.Title} removed from inventory";
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Delete));
+        }
+
+        private void LoadViewData(GameViewModel vm)
+        {
+            vm.genres = genreData.List(new QueryOptions<Genre> { OrderBy = g => g.Name });
+            vm.publishers = publisherData.List(new QueryOptions<Publisher> { OrderBy = p => p.Name });
+        }
+
+        private Game GetGame(int id)
+        {
+            return gameData.Get(new QueryOptions<Game>
+            {
+                Where = b => b.GameID == id,
+                Includes = "Genre, Publisher"
+            }) ?? new Game();
         }
 
         private bool GameExists(int id)
         {
-            return (_context.Games?.Any(e => e.GameID == id)).GetValueOrDefault();
+            if (gameData.Get(id) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

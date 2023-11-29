@@ -1,7 +1,8 @@
-﻿@model VideoGameStore.Models.Game
+﻿@model VideoGameStore.Areas.Admin.Models.GameViewModel
 
 @{
     ViewData["Title"] = "Create";
+
 }
 
 <h1>Create</h1>
@@ -12,39 +13,51 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="game.Title" class="control-label"></label>
+                <input asp-for="game.Title" class="form-control" />
+                <span asp-validation-for="game.Title" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                <label asp-for="game.ReleaseDate" class="control-label"></label>
+                <input asp-for="game.ReleaseDate" class="form-control" />
+                <span asp-validation-for="game.ReleaseDate" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Platform" class="control-label"></label>
-                <select asp-for="Platform" class="form-control"></select>
-                <span asp-validation-for="Platform" class="text-danger"></span>
+                <label asp-for="game.Platform" class="control-label"></label>
+                <select asp-for="game.Platform" class="form-control" asp-items="Html.GetEnumSelectList<VideoGameStore.Models.Platform>()"></select>
+                <span asp-validation-for="game.Platform" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="game.Price" class="control-label"></label>
+                <input asp-for="game.Price" class="form-control" />
+                <span asp-validation-for="game.Price" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="StockQuantity" class="control-label"></label>
-                <input asp-for="StockQuantity" class="form-control" />
-                <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                <label asp-for="game.StockQuantity" class="control-label"></label>
+                <input asp-for="game.StockQuantity" class="form-control" />
+                <span asp-validation-for="game.StockQuantity" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="GenreID" class="control-label"></label>
-                <select asp-for="GenreID" class ="form-control" asp-items="ViewBag.GenreID"></select>
+                <label class="control-label">Genre:</label>
+                <select asp-for="game.GenreID" class="form-control"
+                        asp-items='@new SelectList(Model.genres, "GenreID", "Name")'>
+                </select>
             </div>
+            
             <div class="form-group">
-                <label asp-for="PublisherID" class="control-label"></label>
-                <select asp-for="PublisherID" class ="form-control" asp-items="ViewBag.PublisherID"></select>
+                <label class="control-label">Publisher:</label>
+                <select asp-for="game.PublisherID" class="form-control"
+                        asp-items='@new SelectList(Model.publishers, "PublisherID", "Name")'>
+                </select>
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -57,5 +70,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

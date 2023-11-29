@@ -8,9 +8,10 @@
 
 @* since many admin views deal with user entry and data validation,
    jQuery validation libraries are included here rather than in individual views. *@
-@section scripts {
+@section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+     @await RenderSectionAsync("Scripts", required: false) 
 }
 
 <ul class="nav nav-tabs mt-2 mb-3">
@@ -18,6 +19,18 @@
         <a asp-action="Index" asp-controller="Games"
            class="nav-link @Nav.Active("Games", current)">
             Manage Games
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="Customers"
+           class="nav-link @Nav.Active("Customers", current)">
+            Manage Customers
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="Index" asp-controller="Employees"
+           class="nav-link @Nav.Active("Employees", current)">
+            Manage Employees
         </a>
     </li>
 </ul>

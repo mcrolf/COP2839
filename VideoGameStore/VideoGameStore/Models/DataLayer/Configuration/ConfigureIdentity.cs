@@ -9,7 +9,7 @@ namespace VideoGameStore.Models
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            string username = "AlanTuring";
+            string username = "AdminUser";
             string password = "Password10";
             string roleName = "Admin";
 

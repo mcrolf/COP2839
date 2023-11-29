@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,29 +11,55 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VideoGameStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/font-awesome/css/all.css" asp-append-version="true"/>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Video Game Store</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
 
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Games1" asp-action="Index">Games</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Publishers" asp-action="Index">Publishers</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Games1" asp-action="Index">Games</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Publishers" asp-action="Index">Publishers</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                        <li>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                var user = await userManager.GetUserAsync(User);
+                                if (await userManager.IsInRoleAsync(user, "Admin"))
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="adminDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="fa-solid fa-lock">
+                                                <i class="fa-solid fa-caret-down"></i>
+                                            </span>
+                                            Admin
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labeledby="adminDropDown">
+                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Games" asp-action="Index">Edit Games</a></li>
+                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Index">Edit Customers</a></li>
+                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Employees" asp-action="Index">Edit Employees</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                        </li>
                     </ul>
                 </div>
+                
                 <!-- login -->
                 <div class="d-grid gap-2 d-md-block">
                     <ul class="list-unstyled">
@@ -72,6 +99,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -83,9 +111,11 @@
             &copy; 2023 - VideoGameStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/font-awesome/js/all.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
