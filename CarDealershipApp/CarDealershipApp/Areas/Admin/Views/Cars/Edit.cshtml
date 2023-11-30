@@ -1,10 +1,16 @@
-﻿@model CarDealershipApp.Models.Car
+﻿@model CarDealershipApp.Areas.Admin.Models.CarViewModel;
 
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
+@if (TempData.ContainsKey("message"))
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["message"]
+    </div>
+}
 
 <h4>Car</h4>
 <hr />
@@ -12,42 +18,51 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CarID" />
+            <input type="hidden" asp-for="car.CarID" />
+            
             <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <select asp-for="Color" class="form-control"></select>
-                <span asp-validation-for="Color" class="text-danger"></span>
+                <label asp-for="car.Year" class="control-label"></label>
+                <input asp-for="car.Year" class="form-control" />
+                <span asp-validation-for="car.Year" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="ManufacturerID" class="control-label"></label>
-                <select asp-for="ManufacturerID" class="form-control" asp-items="ViewBag.ManufacturerID"></select>
-                <span asp-validation-for="ManufacturerID" class="text-danger"></span>
+                <label asp-for="car.ManufacturerID" class="control-label"></label>
+                <select asp-for="car.ManufacturerID" class="form-control" 
+                    asp-items='@new SelectList(Model.manufacturers, "ManufacturerID", "Name", Model.car.Manufacturer)' />
+                <span asp-validation-for="car.ManufacturerID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Mileage" class="control-label"></label>
-                <input asp-for="Mileage" class="form-control" />
-                <span asp-validation-for="Mileage" class="text-danger"></span>
+                <label asp-for="car.CarModel" class="control-label"></label>
+                <input asp-for="car.CarModel" class="form-control" />
+                <span asp-validation-for="car.CarModel" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="CarModel" class="control-label"></label>
-                <input asp-for="CarModel" class="form-control" />
-                <span asp-validation-for="CarModel" class="text-danger"></span>
+                <label asp-for="car.Color" class="control-label"></label>
+                <select asp-for="car.Color" class="form-control" asp-items="Html.GetEnumSelectList<CarDealershipApp.Models.Color>()"></select>
+                <span asp-validation-for="car.Color" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="StickerPrice" class="control-label"></label>
-                <input asp-for="StickerPrice" class="form-control" />
-                <span asp-validation-for="StickerPrice" class="text-danger"></span>
+                <label asp-for="car.StickerPrice" class="control-label"></label>
+                <input asp-for="car.StickerPrice" class="form-control" />
+                <span asp-validation-for="car.StickerPrice" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="VIN" class="control-label"></label>
-                <input asp-for="VIN" class="form-control" />
-                <span asp-validation-for="VIN" class="text-danger"></span>
+                <label asp-for="car.Mileage" class="control-label"></label>
+                <input asp-for="car.Mileage" class="form-control" />
+                <span asp-validation-for="car.Mileage" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
+                <label asp-for="car.VIN" class="control-label"></label>
+                <input asp-for="car.VIN" class="form-control" />
+                <span asp-validation-for="car.VIN" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -60,5 +75,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

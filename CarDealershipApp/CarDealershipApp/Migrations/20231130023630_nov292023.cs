@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarDealershipApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Identity : Migration
+    public partial class nov292023 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,4 +1,6 @@
-﻿namespace CarDealershipApp.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace CarDealershipApp.Models
 {
     //******************************************
     // enum for colors
@@ -21,6 +23,8 @@
         //******************************************
         public int CarID { get; set; }
         public Color Color { get; set; }
+        
+        [ValidateNever]
         public int ManufacturerID { get; set; }
         public Manufacturer Manufacturer { get; set; } = null!; // foreign key
         public int Mileage { get; set; }

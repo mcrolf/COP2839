@@ -1,7 +1,4 @@
-﻿<!-- for some reason the bootstrap styling doesnt work here....-->
-
-
-@model IEnumerable<CarDealershipApp.Models.Car>
+﻿@model IEnumerable<CarDealershipApp.Models.Car>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,66 +7,76 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add New</a>
 </p>
-
-<table class="table">
+@if (TempData.ContainsKey("message"))
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["message"]
+    </div>
+}
+<table class="table table-sm table-hover table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Manufacturer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mileage)
+                Model
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarModel)
+                @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StickerPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VIN)
+                @Html.DisplayNameFor(model => model.Mileage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
+                @Html.DisplayNameFor(model => model.VIN)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mileage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StickerPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VIN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CarID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CarID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StickerPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mileage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VIN)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CarID">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CarID">Details</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.CarID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
