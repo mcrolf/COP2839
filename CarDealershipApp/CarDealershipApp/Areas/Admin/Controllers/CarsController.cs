@@ -81,7 +81,7 @@ namespace CarDealershipApp.Areas.Admin.Controllers
             {
                 carData.Insert(vm.car);
                 carData.Save();
-                TempData["message"] = $"{vm.car.Year} + {vm.car.Manufacturer} added to the Cars List";
+                TempData["message"] = $"{vm.car.Year} {vm.car.Manufacturer} {vm.car.CarModel} added to the Cars List";
                 return RedirectToAction("Index");
             }
             else
@@ -143,7 +143,7 @@ namespace CarDealershipApp.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                TempData["message"] = $"{vm.car.Year} + {vm.car.Manufacturer} edited";
+                TempData["message"] = $"{vm.car.Year} {vm.car.Manufacturer} {vm.car.CarModel} edited";
                 return RedirectToAction(nameof(Edit));
             }
             return View("Edit", vm.car.CarID);
@@ -185,7 +185,7 @@ namespace CarDealershipApp.Areas.Admin.Controllers
             {
                 carData.Delete(carToDelete);
                 carData.Save();
-                TempData["message"] = $"{carToDelete.Year} + {carToDelete.Manufacturer} removed from inventory";
+                TempData["message"] = $"{carToDelete.Year} {carToDelete.Manufacturer} {carToDelete.CarModel} removed from inventory";
             }
 
             return RedirectToAction(nameof(Delete));

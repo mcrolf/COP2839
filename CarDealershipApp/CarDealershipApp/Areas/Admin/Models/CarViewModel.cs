@@ -4,7 +4,7 @@ namespace CarDealershipApp.Areas.Admin.Models
 {
     public class CarViewModel
     {
-        public Car car {  get; set; } = new Car();
+        public Car car { get; set; } = new Car();
 
         //---------------------------------------------------
         // list of manufacturers

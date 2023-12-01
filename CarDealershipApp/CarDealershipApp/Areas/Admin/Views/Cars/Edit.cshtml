@@ -1,4 +1,4 @@
-﻿@model CarDealershipApp.Areas.Admin.Models.CarViewModel;
+﻿@model CarDealershipApp.Areas.Admin.Models.CarViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,55 +16,62 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="car.CarID" />
-            
+
             <div class="form-group">
+                <!-- input year -->
                 <label asp-for="car.Year" class="control-label"></label>
                 <input asp-for="car.Year" class="form-control" />
                 <span asp-validation-for="car.Year" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
-                <label asp-for="car.ManufacturerID" class="control-label"></label>
-                <select asp-for="car.ManufacturerID" class="form-control" 
-                    asp-items='@new SelectList(Model.manufacturers, "ManufacturerID", "Name", Model.car.Manufacturer)' />
+                <label class="control-label"> Manufacturer: </label>
+                <select asp-for="car.ManufacturerID" class="form-select" 
+                asp-items="@(new SelectList(Model.manufacturers, "ManufacturerID", "Name", Model.car.Manufacturer))">
+                </select>
                 <span asp-validation-for="car.ManufacturerID" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="car.CarModel" class="control-label"></label>
+                <label class="control-label"> Model: </label>
                 <input asp-for="car.CarModel" class="form-control" />
                 <span asp-validation-for="car.CarModel" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
-                <label asp-for="car.Color" class="control-label"></label>
-                <select asp-for="car.Color" class="form-control" asp-items="Html.GetEnumSelectList<CarDealershipApp.Models.Color>()"></select>
+                <!-- drop down menu to select color -->
+                <label class="control-label"> Color: </label>
+                <select asp-for="car.Color" class="form-select" asp-items="Html.GetEnumSelectList<CarDealershipApp.Models.Color>()">
+                </select>
                 <span asp-validation-for="car.Color" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
+                <!-- input VIN -->
+                <label class="control-label"> VIN: </label>
+                <input asp-for="car.VIN" class="form-control" />
+                <span asp-validation-for="car.VIN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <!-- input sticker price -->
                 <label asp-for="car.StickerPrice" class="control-label"></label>
                 <input asp-for="car.StickerPrice" class="form-control" />
                 <span asp-validation-for="car.StickerPrice" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
+                <!-- input mileage -->
                 <label asp-for="car.Mileage" class="control-label"></label>
                 <input asp-for="car.Mileage" class="form-control" />
                 <span asp-validation-for="car.Mileage" class="text-danger"></span>
             </div>
-            
+
+
             <div class="form-group">
-                <label asp-for="car.VIN" class="control-label"></label>
-                <input asp-for="car.VIN" class="form-control" />
-                <span asp-validation-for="car.VIN" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

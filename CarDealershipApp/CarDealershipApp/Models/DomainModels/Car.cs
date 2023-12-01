@@ -23,10 +23,13 @@ namespace CarDealershipApp.Models
         //******************************************
         public int CarID { get; set; }
         public Color Color { get; set; }
-        
-        [ValidateNever]
+
+        //-------------------------------------------------
         public int ManufacturerID { get; set; }
+        [ValidateNever]
         public Manufacturer Manufacturer { get; set; } = null!; // foreign key
+        //-------------------------------------------------
+
         public int Mileage { get; set; }
         public string? CarModel {  get; set; }
         public decimal StickerPrice { get; set; }
