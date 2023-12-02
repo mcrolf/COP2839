@@ -1,0 +1,74 @@
+﻿@model VideoGameStore.Admin.Models.Employee
+
+@{
+    // this view is used for add, edit, and delete.
+    var action = ViewContext.RouteData.Values["action"]!.ToString()!.Capitalize();
+
+    ViewData["Title"] = $" | {action} Employee";
+}
+
+<h1>@action Customer</h1>
+
+<form asp-action="@action" asp-area="Admin" method="post">
+    @* CustomerId needed by both delete and edit *@
+    <input type="hidden" asp-for="EmployeeID" />
+
+    @* Operation field needed by remote validation *@
+    <input type="hidden" name="Operation" value="@action" />
+
+    @* if deleting, just display full name, but include first and last
+    name in hidden fields so can be used to display delete message.
+    Otherwise, provide text boxes for first and last name. *@
+    @if (action.EqualsNoCase("delete"))
+    {
+        <h5>@Model.FullName</h5>
+        <input type="hidden" asp-for="FirstName" />
+        <input type="hidden" asp-for="LastName" />
+    }
+    else
+    {
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="col-form-label">First Name:</label>
+                <input type="text" asp-for="@Model.FirstName" class="form-control" />
+                <div class="col">
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-form-label">Last Name:</label>
+                <input type="text" asp-for="@Model.LastName" class="form-control" />
+                <div class="col">
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-form-label">Posisition: </label>
+                <input type="text" asp-for="@Model.Position" class="form-control" />
+                <div class="col">
+                    <span asp-validation-for="@Model.Position" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-form-label">Hire Date: </label>
+                <input type="datetime-local" asp-for="@Model.HireDate" class="form-control" />
+                <div class="col">
+                    <span asp-validation-for="@Model.HireDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-form-label">Salary: </label>
+                <input type="text" asp-for="@Model.Salary" class="form-control" />
+                <div class="col">
+                    <span asp-validation-for="@Model.Salary" class="text-danger"></span>
+                </div>
+            </div>
+            @* when deleting, add whitespace above buttons. Otherwise, offset buttons
+        to line up with text boxes *@
+            <div class="@(action.EqualsNoCase("delete") ? "mt-2" : "col-md-12")">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    }
+</form>

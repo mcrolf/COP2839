@@ -155,6 +155,131 @@ namespace VideoGameStore.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("VideoGameStore.Admin.Models.Customer", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
+
+                    b.Property<string>("Address1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Zipcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerID = 1,
+                            Address1 = "123 Main St",
+                            Address2 = "Apt 45",
+                            City = "Anytown",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            State = "CA",
+                            Zipcode = "12345"
+                        },
+                        new
+                        {
+                            CustomerID = 2,
+                            Address1 = "456 Oak St",
+                            Address2 = "",
+                            City = "Another City",
+                            FirstName = "Alice",
+                            LastName = "Smith",
+                            State = "NY",
+                            Zipcode = "6789"
+                        },
+                        new
+                        {
+                            CustomerID = 3,
+                            Address1 = "789 Pine St",
+                            Address2 = "Suite 101",
+                            City = "Yet Another City",
+                            FirstName = "Bob",
+                            LastName = "Johnson",
+                            State = "TX",
+                            Zipcode = "54321"
+                        });
+                });
+
+            modelBuilder.Entity("VideoGameStore.Admin.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("EmployeeID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            EmployeeID = 1,
+                            FirstName = "Silent",
+                            HireDate = new DateTime(2023, 12, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            LastName = "Bob",
+                            Position = "Clerk",
+                            Salary = 45000m
+                        });
+                });
+
             modelBuilder.Entity("VideoGameStore.Models.Game", b =>
                 {
                     b.Property<int>("GameID")
@@ -667,6 +792,24 @@ namespace VideoGameStore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VideoGameStore.Admin.Models.Customer", b =>
+                {
+                    b.HasOne("VideoGameStore.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("VideoGameStore.Admin.Models.Employee", b =>
+                {
+                    b.HasOne("VideoGameStore.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VideoGameStore.Models.Game", b =>

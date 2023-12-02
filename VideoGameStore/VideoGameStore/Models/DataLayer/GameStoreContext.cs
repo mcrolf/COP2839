@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using VideoGameStore.Admin.Models;
 
 namespace VideoGameStore.Models
 {
@@ -12,6 +13,8 @@ namespace VideoGameStore.Models
         public DbSet<Game> Games { get; set; } = null!;
         public DbSet<Genre> Genres { get; set; } = null!;
         public DbSet<Publisher> Publishers { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Employee> Employees { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +23,8 @@ namespace VideoGameStore.Models
             modelBuilder.ApplyConfiguration(new GameConfiguration());
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
             modelBuilder.ApplyConfiguration(new PublisherConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
         }
 
     }
