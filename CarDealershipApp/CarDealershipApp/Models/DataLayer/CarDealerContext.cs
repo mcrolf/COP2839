@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using CarDealershipApp.Areas.Admin.Models;
 
 namespace CarDealershipApp.Models
 {
@@ -14,9 +14,7 @@ namespace CarDealershipApp.Models
         public DbSet<Car> Cars { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
-        public DbSet<Lot> Lots { get; set; } = null!;
         public DbSet<Manufacturer> Manufacturers { get; set; } = null!;
-        public DbSet<Sale> Sales { get; set; } = null!;
 
         //******************************************
         // build model
@@ -30,6 +28,8 @@ namespace CarDealershipApp.Models
 
             modelBuilder.ApplyConfiguration(new CarConfig());
             modelBuilder.ApplyConfiguration(new ManufacturerConfig());
+            modelBuilder.ApplyConfiguration(new EmployeeConfig());
+            modelBuilder.ApplyConfiguration(new CustomerConfig());
         }
     }
 }
