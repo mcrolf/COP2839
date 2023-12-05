@@ -77,12 +77,15 @@
                     <span asp-validation-for="@Model.Zipcode" class="text-danger"></span>
                 </div>
             </div>
-            @* when deleting, add whitespace above buttons. Otherwise, offset buttons
-        to line up with text boxes *@
-            <div class="@(action.EqualsNoCase("delete") ? "mt-2" : "col-md-12")">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a asp-action="Index" class="btn btn-primary">Cancel</a>
-            </div>
+        
         </div>
     }
+
+    @* when deleting, add whitespace above buttons. Otherwise, offset buttons
+    to line up with text boxes *@
+    <div class="@(action.EqualsNoCase("delete") ? "mt-2" : "col-md-12")">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-primary">Cancel</a>
+    </div>
+
 </form>
