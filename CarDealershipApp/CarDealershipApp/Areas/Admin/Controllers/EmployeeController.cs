@@ -95,7 +95,7 @@ namespace VideoGameStore.Areas.Admin.Controllers
             {
                 Where = a => a.EmployeeID == id
             });
-            return View(employee);
+            return View("Employee", employee);
 
         }
 

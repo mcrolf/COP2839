@@ -93,7 +93,7 @@ namespace VideoGameStore.Areas.Admin.Controllers
             {
                 Where = a => a.CustomerID == id
             });
-            return View(customer);
+            return View("Customer", customer);
 
         }
 
